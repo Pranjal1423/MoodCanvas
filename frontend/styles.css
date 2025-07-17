@@ -1,0 +1,208 @@
+body {
+    background: linear-gradient(to bottom right, #1e3a8a, #6b21a8, #db2777);
+    color: white;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.8s ease-out;
+}
+
+button:hover {
+    animation: pulse 0.3s ease-in-out;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* Enhanced Canvas Container Styling */
+.canvas-container {
+    width: 600px !important;
+    height: 500px !important;
+    margin: 20px auto !important;
+    border: 3px solid rgba(255, 255, 255, 0.4) !important;
+    border-radius: 16px !important;
+    background: rgba(0, 0, 0, 0.3) !important;
+    overflow: hidden !important;
+    position: relative !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+}
+
+.canvas-container canvas {
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: relative !important;
+    z-index: 1 !important;
+}
+
+/* Style Selector Styling */
+.style-btn {
+    cursor: pointer;
+    user-select: none;
+    min-height: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.style-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+}
+
+.style-btn.selected {
+    border-color: #fbbf24 !important;
+    background-color: rgba(251, 191, 36, 0.2) !important;
+    box-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
+}
+
+/* Loading Animation Enhancements */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.animate-spin {
+    animation: spin 1s linear infinite;
+}
+
+/* Enhanced Button Styles */
+#submitBtn {
+    background: linear-gradient(45deg, #3b82f6, #06b6d4, #8b5cf6);
+    background-size: 200% 200%;
+    animation: gradientShift 3s ease infinite;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Action Button Styling */
+#saveBtn, #shareBtn, #regenerateBtn {
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+#saveBtn:hover, #shareBtn:hover, #regenerateBtn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive Design Enhancements */
+@media (max-width: 768px) {
+    .canvas-container {
+        width: 90vw !important;
+        height: 400px !important;
+        margin: 15px auto !important;
+    }
+    
+    #styleSelector {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+    
+    .style-btn {
+        min-height: 70px;
+        font-size: 0.875rem;
+    }
+    
+    h1 {
+        font-size: 3rem !important;
+    }
+}
+
+@media (max-width: 480px) {
+    #styleSelector {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+    
+    .style-btn {
+        min-height: 60px;
+        padding: 0.5rem;
+    }
+    
+    .style-btn div:first-child {
+        font-size: 1.5rem;
+    }
+    
+    .style-btn div:last-child {
+        font-size: 0.75rem;
+    }
+}
+
+/* Loading state for canvas */
+.canvas-container::before {
+    content: "🎨 Loading your artwork...";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 18px;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.canvas-container.loaded::before {
+    display: none;
+}
+
+/* Style-specific UI enhancements */
+.style-anime { border-color: #ff69b4 !important; }
+.style-cyberpunk { border-color: #00ffff !important; }
+.style-oil_painting { border-color: #daa520 !important; }
+.style-watercolor { border-color: #87ceeb !important; }
+.style-vintage { border-color: #deb887 !important; }
+.style-abstract { border-color: #9370db !important; }
+.style-sketch { border-color: #c0c0c0 !important; }
+.style-realistic { border-color: #4682b4 !important; }
+
+/* Enhanced animations */
+@keyframes slideInUp {
+    from {
+        transform: translateY(30px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+#result {
+    animation: slideInUp 0.6s ease-out;
+}
+
+/* Improved loading overlay */
+#loadingAnimation {
+    backdrop-filter: blur(5px);
+    transition: all 0.3s ease;
+}
+
+#loadingAnimation > div {
+    animation: slideInUp 0.4s ease-out;
+}
+
+/* Success feedback animations */
+@keyframes successPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); background-color: #10b981; }
+    100% { transform: scale(1); }
+}
+
+.success-feedback {
+    animation: successPulse 0.6s ease;
+}
