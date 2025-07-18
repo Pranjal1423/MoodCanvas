@@ -281,7 +281,7 @@ async function generateArt() {
     try {
         console.log("🚀 Generating art with style:", selectedStyle);
         
-        const response = await fetch("https://moodcanvas.onrender.com/generate", {
+        const response = await fetch("https://moodcanvas.onrender.com/", {
             method: 'POST',
             headers: { 
                 'Content-Type': 'application/json' 
