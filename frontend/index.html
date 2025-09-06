@@ -3,46 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MoodCanvas - Enhanced Art Generator</title>
+    <title>MoodCanvas - AI Art from Emotions</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <link href="styles.css" rel="stylesheet">
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎨</text></svg>">
 </head>
 <body class="flex flex-col items-center justify-center min-h-screen p-6 bg-gradient-to-br from-indigo-900 via-purple-800 to-pink-700">
+    <!-- Header Section -->
     <div class="mb-8 text-center animate-fade-in">
-        <h1 class="text-6xl font-extrabold tracking-tight text-white drop-shadow-2xl">MoodCanvas</h1>
-        <p class="max-w-md mx-auto mt-4 text-xl font-light text-gray-100">Express your emotions and watch them transform into stunning digital art</p>
-        
+        <div class="flex items-center justify-center mb-4">
+            <span class="text-6xl mr-4">🎨</span>
+            <h1 class="text-6xl font-extrabold tracking-tight text-white drop-shadow-2xl">MoodCanvas</h1>
+        </div>
+        <p class="max-w-lg mx-auto mt-4 text-xl font-light text-gray-100">
+            Express your emotions and watch them transform into stunning digital art
+        </p>
+        <p class="max-w-md mx-auto mt-2 text-sm text-gray-300">
+            Powered by AI • Multiple Art Styles • Voice Input Available
+        </p>
     </div>
     
-    <div class="w-full max-w-2xl p-8 bg-white border border-white shadow-2xl bg-opacity-10 rounded-2xl backdrop-blur-lg border-opacity-20">
+    <!-- Main Input Card -->
+    <div class="w-full max-w-3xl p-8 bg-white border border-white shadow-2xl bg-opacity-10 rounded-2xl backdrop-blur-lg border-opacity-20">
+        <!-- Instructions -->
+        <div class="mb-6 p-4 bg-blue-500 bg-opacity-20 rounded-lg border border-blue-400 border-opacity-30">
+            <h3 class="text-lg font-semibold text-blue-100 mb-2">✨ How it works:</h3>
+            <ol class="text-sm text-blue-200 space-y-1">
+                <li>1. Describe your feelings or mood in the text box below</li>
+                <li>2. Choose your preferred art style from the options</li>
+                <li>3. Click "Generate Art" and watch the magic happen!</li>
+            </ol>
+        </div>
+
         <!-- Emotion Input -->
-        <textarea id="textInput" class="w-full p-4 text-gray-800 transition duration-300 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400" placeholder="How are you feeling today?" rows="4"></textarea>
+        <div class="mb-6">
+            <label for="textInput" class="block mb-2 text-lg font-semibold text-white">
+                How are you feeling today? 💭
+            </label>
+            <textarea 
+                id="textInput" 
+                class="w-full p-4 text-gray-800 transition duration-300 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 resize-none" 
+                placeholder="I'm feeling excited about my new project and ready to take on the world! 🌟" 
+                rows="4"
+            ></textarea>
+            <p class="text-xs text-gray-300 mt-1">Tip: Be specific about your emotions for better results</p>
+        </div>
         
         <!-- Art Style Selector -->
-        <div class="mt-6">
-            <label class="block mb-3 text-lg font-semibold text-white">Choose Your Art Style:</label>
+        <div class="mb-6">
+            <label class="block mb-3 text-lg font-semibold text-white">
+                Choose Your Art Style: 🎨
+            </label>
             <div id="styleSelector" class="grid grid-cols-2 gap-3 md:grid-cols-4">
                 <!-- Style buttons will be populated by JavaScript -->
             </div>
         </div>
         
         <!-- Action Buttons -->
-        <div class="flex mt-6 space-x-4">
-            <button id="voiceBtn" class="flex items-center justify-center flex-1 py-3 text-white transition duration-300 transform rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 hover:scale-105" style="width: max-content;">
-                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20"><path d="M10 2a3 3 0 00-3 3v4a3 3 0 006 0V5a3 3 0 00-3-3zm5 7h2v2h-2v2h-2v-2H8v2H6v-2H4V9h2V7h2v2h5V7h2v2z"></path></svg>
+        <div class="flex flex-col sm:flex-row gap-4">
+            <button id="voiceBtn" class="flex items-center justify-center px-6 py-3 text-white transition duration-300 transform rounded-lg bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 hover:scale-105">
+                <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 2a3 3 0 00-3 3v4a3 3 0 006 0V5a3 3 0 00-3-3zm5 7h2v2h-2v2h-2v-2H8v2H6v-2H4V9h2V7h2v2h5V7h2v2z"></path>
+                </svg>
                 Record Voice
             </button>
-            <button id="submitBtn" class="px-6 py-3 font-semibold text-white transition duration-300 transform rounded-lg flex-2 bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 hover:scale-105">
+            <button id="submitBtn" class="flex-1 px-6 py-3 font-semibold text-white transition duration-300 transform rounded-lg bg-gradient-to-r from-blue-600 to-cyan-600 hover:from-blue-700 hover:to-cyan-700 hover:scale-105">
                 🎨 Generate Art
             </button>
         </div>
     </div>
     
     <!-- Results Section -->
-    <div id="result" class="hidden mt-12 text-center animate-fade-in">
+    <div id="result" class="hidden mt-12 text-center animate-fade-in w-full max-w-4xl">
         <div class="mb-6">
-            <h2 class="text-4xl font-semibold text-white">Your Mood: <span id="sentiment" class="font-bold text-transparent capitalize bg-clip-text bg-gradient-to-r from-yellow-400 to-pink-500"></span></h2>
+            <h2 class="text-4xl font-semibold text-white">
+                Your Mood: <span id="sentiment" class="font-bold text-transparent capitalize bg-clip-text bg-gradient-to-r from-yellow-400 to-pink-500"></span>
+            </h2>
             <div class="mt-2 text-lg text-gray-200">
                 Style: <span id="usedStyle" class="font-semibold text-cyan-300"></span>
             </div>
@@ -51,29 +89,37 @@
         <p id="prompt" class="max-w-md p-4 mx-auto mt-4 text-lg italic text-gray-100 bg-gray-800 bg-opacity-50 rounded-lg"></p>
         
         <!-- Canvas Container -->
-        <div id="canvasContainer" class="canvas-container"></div>
+        <div id="canvasContainer" class="canvas-container mx-auto"></div>
         
         <!-- Action Buttons for Generated Art -->
-        <div class="flex justify-center mt-6 space-x-4">
-            <button id="saveBtn" class="px-6 py-2 text-white transition duration-300 bg-green-600 rounded-lg hover:bg-green-700">
+        <div class="flex flex-wrap justify-center mt-6 gap-4">
+            <button id="saveBtn" class="px-6 py-2 text-white transition duration-300 bg-green-600 rounded-lg hover:bg-green-700 hover:scale-105">
                 💾 Save Artwork
             </button>
-            <button id="shareBtn" class="px-6 py-2 text-white transition duration-300 bg-purple-600 rounded-lg hover:bg-purple-700">
+            <button id="shareBtn" class="px-6 py-2 text-white transition duration-300 bg-purple-600 rounded-lg hover:bg-purple-700 hover:scale-105">
                 🔗 Share
             </button>
-            <button id="regenerateBtn" class="px-6 py-2 text-white transition duration-300 bg-orange-600 rounded-lg hover:bg-orange-700">
+            <button id="regenerateBtn" class="px-6 py-2 text-white transition duration-300 bg-orange-600 rounded-lg hover:bg-orange-700 hover:scale-105">
                 🔄 Regenerate
             </button>
         </div>
     </div>
+
+    <!-- Error Message -->
+    <div id="errorMessage" class="hidden mt-6 p-4 bg-red-500 bg-opacity-20 border border-red-400 rounded-lg max-w-md mx-auto">
+        <p class="text-red-200 text-center">❌ Something went wrong. Please try again.</p>
+    </div>
     
     <!-- Loading Animation -->
     <div id="loadingAnimation" class="fixed inset-0 z-50 flex items-center justify-center hidden bg-black bg-opacity-50">
-        <div class="p-8 text-center bg-white rounded-lg">
+        <div class="p-8 text-center bg-white rounded-lg shadow-2xl">
             <div class="w-16 h-16 mx-auto mb-4 border-b-2 border-purple-600 rounded-full animate-spin"></div>
             <p class="text-lg text-gray-800">Creating your <span id="loadingStyle">artistic</span> masterpiece...</p>
+            <p class="text-sm text-gray-600 mt-2">This may take 10-30 seconds</p>
         </div>
     </div>
+
+
     
     <script src="script.js"></script>
 </body>

@@ -33,22 +33,49 @@ document.addEventListener('DOMContentLoaded', () => {
 // Load available art styles from backend
 async function loadAvailableStyles() {
     try {
-        const response = await fetch("http://localhost:5000/styles");
+        console.log("🔄 Loading art styles from API...");
+        const response = await fetch("https://moodcanvas.onrender.com/styles");
+        console.log("📡 API Response status:", response.status);
+        
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
         const data = await response.json();
+        console.log("📦 API Response data:", data);
         
         if (data.status === "success") {
             availableStyles = data.styles;
             renderStyleSelector();
             console.log("🎨 Loaded art styles:", Object.keys(availableStyles));
+        } else {
+            throw new Error("API returned error status");
         }
     } catch (error) {
         console.error("❌ Failed to load styles:", error);
-        // Fallback styles
+        // Fallback styles - all 8 styles
         availableStyles = {
-            "realistic": { "name": "Realistic", "icon": "📷" },
-            "anime": { "name": "Anime", "icon": "🎌" },
-            "abstract": { "name": "Abstract", "icon": "🎨" },
-            "oil_painting": { "name": "Oil Painting", "icon": "🖼️" }
+            "realistic": { "name": "Realistic", "description": "Photorealistic, detailed artwork", "icon": "📷" },
+            "anime": { "name": "Anime", "description": "Japanese animation style", "icon": "🎌" },
+            "abstract": { "name": "Abstract", "description": "Modern abstract art", "icon": "🎨" },
+            "oil_painting": { "name": "Oil Painting", "description": "Classical painting style", "icon": "🖼️" },
+            "cyberpunk": { "name": "Cyberpunk", "description": "Futuristic neon style", "icon": "🌆" },
+            "watercolor": { "name": "Watercolor", "description": "Soft watercolor painting", "icon": "🎭" },
+            "sketch": { "name": "Sketch", "description": "Hand-drawn pencil art", "icon": "✏️" },
+            "vintage": { "name": "Vintage", "description": "Retro nostalgic style", "icon": "📼" }
+        };
+        renderStyleSelector();
+        console.log("🔄 Using fallback styles:", Object.keys(availableStyles));
+    }
+    
+    // Ensure styles are always rendered
+    if (Object.keys(availableStyles).length === 0) {
+        console.log("⚠️ No styles loaded, using emergency fallback");
+        availableStyles = {
+            "realistic": { "name": "Realistic", "description": "Photorealistic, detailed artwork", "icon": "📷" },
+            "anime": { "name": "Anime", "description": "Japanese animation style", "icon": "🎌" },
+            "abstract": { "name": "Abstract", "description": "Modern abstract art", "icon": "🎨" },
+            "oil_painting": { "name": "Oil Painting", "description": "Classical painting style", "icon": "🖼️" }
         };
         renderStyleSelector();
     }
@@ -56,7 +83,13 @@ async function loadAvailableStyles() {
 
 // Render style selection buttons
 function renderStyleSelector() {
+    console.log("🎨 Rendering style selector with styles:", availableStyles);
     styleSelector.innerHTML = '';
+    
+    if (!availableStyles || Object.keys(availableStyles).length === 0) {
+        console.error("❌ No styles available to render!");
+        return;
+    }
     
     Object.entries(availableStyles).forEach(([styleKey, styleData]) => {
         const button = document.createElement('button');
